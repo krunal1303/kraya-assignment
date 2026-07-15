@@ -3,10 +3,14 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { RegisterDto } from './dto/register.dto';
 import bcrypt from 'bcrypt';
 import { LoginDto } from './dto/login.dto';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly jwtService: JwtService,
+  ) {}
 
   // TO REGISTER A NEW USER
   async register(registerDto: RegisterDto) {
@@ -47,6 +51,16 @@ export class AuthService {
     if (!comparePassword)
       throw new UnauthorizedException('Invalid email or password');
 
-    return 'User login successfully...';
+    const payload = {
+      sub: user.id,
+      email: user.email,
+    };
+
+    const accessToken = await this.jwtService.signAsync(payload);
+
+    return {
+      message: 'Login successful',
+      accessToken,
+    };
   }
 }
