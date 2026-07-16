@@ -9,7 +9,7 @@ import { CurrentUser } from './decorators/current-user.decorator';
 // @Controler = decorator
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) { }
+  constructor(private readonly authService: AuthService) {}
 
   // route - /auth/register - in express
   @Post('register')

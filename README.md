@@ -2,9 +2,9 @@
 
 ## Prerequisites
 
-* Node.js
-* PostgreSQL
-* Docker
+- Node.js
+- PostgreSQL
+- Docker
 
 ---
 
@@ -31,6 +31,15 @@ Example:
 DATABASE_URL="postgresql://postgres:postgres@localhost:5432/krayaDB"
 
 JWT_SECRET=kraya-secret-key
+
+// SEED ADMIN CREDS
+DEFAULT_ADMIN_NAME=Admin
+DEFAULT_ADMIN_EMAIL=admin@kraya.com
+DEFAULT_ADMIN_PASSWORD=Admin@123
+DEFAULT_ADMIN_PHONE=9090909090
+
+PERMISSIONS_KEY=permission
+
 
 PORT=3001
 ```
@@ -81,12 +90,12 @@ http://localhost:3000
 
 ### Public APIs
 
-* `POST /auth/register`
-* `POST /auth/login`
+- `POST /auth/register`
+- `POST /auth/login`
 
 ### Protected APIs
 
-* `GET /auth/profile`
+- `GET /auth/profile`
 
 For protected APIs, pass the JWT token in the Authorization header:
 
@@ -116,8 +125,6 @@ npx prisma studio
 
 This project is currently under development as part of the assignment.
 
-
-
-// .env creds 
+// .env creds
 DATABASE_URL="postgresql://postgres:postgres@localhost:5432/krayaDB"
 JWT_SECRET=kraya-secret-key
