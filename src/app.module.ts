@@ -10,4 +10,4 @@ import { AuthModule } from './auth/auth.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}schema.prisma
+export class AppModule { }
