@@ -70,6 +70,14 @@ Run migrations:
 npx prisma migrate dev
 ```
 
+```bash
+npx prisma migrate deploy
+```
+
+```Seed the default data
+npx prisma db seed
+```
+
 ---
 
 ## Start the application

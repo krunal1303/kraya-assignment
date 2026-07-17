@@ -1,4 +1,10 @@
 export const permissions = [
+  // USER
+  { entity: 'USER', action: 'CREATE' },
+  { entity: 'USER', action: 'READ' },
+  { entity: 'USER', action: 'UPDATE' },
+  { entity: 'USER', action: 'DELETE' },
+
   // ITEM
   { entity: 'ITEM', action: 'CREATE' },
   { entity: 'ITEM', action: 'READ' },

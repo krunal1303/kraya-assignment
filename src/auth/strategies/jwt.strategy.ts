@@ -34,7 +34,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
           },
         },
       },
-      x,
     });
 
     if (!user) {

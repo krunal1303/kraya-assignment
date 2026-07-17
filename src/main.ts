@@ -8,12 +8,6 @@ async function bootstrap() {
   // TO USE THE INCOMMING DATA VALIDATION ERROR
   app.useGlobalPipes(new ValidationPipe());
 
-  // app.useGlobalPipes(
-  // new ValidationPipe({
-  //     whitelist: true,
-  //     transform: true,
-  //   }),
-  // );
   await app.listen(process.env.PORT ?? 3001);
 }
 bootstrap();
