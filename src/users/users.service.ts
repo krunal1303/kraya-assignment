@@ -1,4 +1,4 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/prisma/prisma.service';
 import bcrypt from 'bcrypt';
@@ -8,6 +8,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 export class UsersService {
     constructor(private readonly prisma: PrismaService) { }
 
+    // create a new user by Admin User
     async create(createUserDto: CreateUserDto) {
 
         const existingUser = await this.prisma.user.findFirst({
@@ -35,5 +36,47 @@ export class UsersService {
         const { password: _, ...response } = createdUser;
 
         return response;
+    }
+
+    // Get all the users
+    async findAll() {
+        return await this.prisma.user.findMany({
+            select: {
+
+                id: true,
+                name: true,
+                email: true,
+                phone: true,
+                isActive: true,
+                isAdmin: true,
+                createdAt: true,
+                updatedAt: true,
+                userRoles: {
+                    include: {
+                        role: true,
+                    },
+                },
+            },
+        });
+    }
+
+    // Get single user
+    async findOne(id: string) {
+        const user = await this.prisma.user.findUnique({
+            where: { id },
+            include: {
+                userRoles: {
+                    include: {
+                        role: true,
+                    },
+                },
+            },
+        });
+
+        if (!user) throw new NotFoundException('User not found')
+
+        const { password, ...result } = user;
+
+        return result;
     }
 }
