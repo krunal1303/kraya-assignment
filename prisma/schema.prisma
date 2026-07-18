@@ -33,6 +33,9 @@ model User {
   createdMIs MI[] @relation("CreatedMIs")
   updatedMIs MI[] @relation("UpdatedMIs")
 
+  createdRFQs RFQ[] @relation("CreatedRFQs")
+  updatedRFQs RFQ[] @relation("UpdatedRFQs")
+
   @@map("users")
 }
 
@@ -111,6 +114,8 @@ model Item {
 
   indentItems IndentItem[]
 
+  rfqItems RFQItem[]
+
   @@map("items")
 }
 
@@ -128,8 +133,9 @@ model Vendor {
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
 
-  createdByUser     User @relation("CreatedVendors", fields: [createdByUserId], references: [id])
-  lastUpdatedByUser User @relation("UpdatedVendors", fields: [lastUpdatedByUserId], references: [id])
+  createdByUser     User      @relation("CreatedVendors", fields: [createdByUserId], references: [id])
+  lastUpdatedByUser User      @relation("UpdatedVendors", fields: [lastUpdatedByUserId], references: [id])
+  rfqItems          RFQItem[]
 
   @@map("vendors")
 }
@@ -209,4 +215,45 @@ model MIItem {
 
   @@unique([miId, itemId])
   @@map("mi_items")
+}
+
+model RFQ {
+  id String @id @default(uuid())
+
+  rfqId     String @unique @map("rfq_id")
+  companyId String @map("company_id")
+  rfqCode   String @unique @map("rfq_code")
+
+  description String?
+
+  createdByUserId     String @map("created_by_user_id")
+  lastUpdatedByUserId String @map("last_updated_by_user_id")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  createdByUser     User @relation("CreatedRFQs", fields: [createdByUserId], references: [id])
+  lastUpdatedByUser User @relation("UpdatedRFQs", fields: [lastUpdatedByUserId], references: [id])
+
+  rfqItems RFQItem[]
+
+  @@map("rfqs")
+}
+
+model RFQItem {
+  id String @id @default(uuid())
+
+  rfqId    String @map("rfq_id")
+  itemId   String @map("item_id")
+  vendorId String @map("vendor_id")
+
+  quantity Int
+  price    Float
+
+  rfq    RFQ    @relation(fields: [rfqId], references: [id])
+  item   Item   @relation(fields: [itemId], references: [id])
+  vendor Vendor @relation(fields: [vendorId], references: [id])
+
+  @@unique([rfqId, itemId, vendorId])
+  @@map("rfq_items")
 }

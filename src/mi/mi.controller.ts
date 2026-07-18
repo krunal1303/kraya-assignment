@@ -3,8 +3,8 @@ import { MiService } from './mi.service';
 import { CreateMiDto } from './dto/create-mi.dto';
 import { UpdateMiDto } from './dto/update-mi.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { PermissionsGuard } from 'src/auth/guards/permissions.guard';
 import { Permissions } from 'src/auth/decorators/permissions.decorator';
+import { PermissionsGuard } from 'src/auth/guards/permissions/permissions.guard';
 
 @Controller('mi')
 export class MiController {

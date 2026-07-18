@@ -8,9 +8,10 @@ import { RolesModule } from './roles/roles.module';
 import { VendorsModule } from './vendors/vendors.module';
 import { IndentsModule } from './indents/indents.module';
 import { MiModule } from './mi/mi.module';
+import { RfqModule } from './rfq/rfq.module';
 
 @Module({
-  imports: [UsersModule, PrismaModule, AuthModule, RolesModule, VendorsModule, IndentsModule, MiModule],
+  imports: [UsersModule, PrismaModule, AuthModule, RolesModule, VendorsModule, IndentsModule, MiModule, RfqModule],
   controllers: [AppController],
   providers: [AppService],
 })
