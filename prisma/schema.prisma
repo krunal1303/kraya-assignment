@@ -9,15 +9,13 @@ datasource db {
 
 // MODEL FOR USERS
 model User {
-  id       String @id @default(uuid())
-  name     String
-  email    String @unique
-  phone    String @unique
-  password String
-
-  isAdmin  Boolean @default(false)
-  isActive Boolean @default(true)
-
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  phone     String   @unique
+  password  String
+  isAdmin   Boolean  @default(false)
+  isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -25,6 +23,10 @@ model User {
 
   createdItems Item[] @relation("CreatedItems")
   updatedItems Item[] @relation("UpdatedItems")
+
+  createdVendors Vendor[] @relation("CreatedVendors")
+  updatedVendors Vendor[] @relation("UpdatedVendors")
+  Item           Item[]
 
   @@map("users")
 }
@@ -46,12 +48,11 @@ model Role {
 }
 
 model UserRole {
-  id     String @id @default(uuid())
-  userId String
-  roleId String
-  user   User   @relation(fields: [userId], references: [id])
-  role   Role   @relation(fields: [roleId], references: [id])
-
+  id        String   @id @default(uuid())
+  userId    String
+  roleId    String
+  user      User     @relation(fields: [userId], references: [id])
+  role      Role     @relation(fields: [roleId], references: [id])
   createdAt DateTime @default(now())
 
   @@unique([userId, roleId])
@@ -59,11 +60,9 @@ model UserRole {
 }
 
 model Permission {
-  id String @id @default(uuid())
-
-  entity String
-  action String
-
+  id        String   @id @default(uuid())
+  entity    String
+  action    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -86,27 +85,43 @@ model RolePermission {
 }
 
 model Item {
-  id          String  @id @default(uuid())
-  itemId      String  @unique @map("item_id")
-  companyId   String  @map("company_id")
-  itemCode    String  @map("item_code")
-  name        String
-  description String?
-  unit        String
-  price       Float
-
-  createdByUserId     String @map("created_by_user_id")
-  lastUpdatedByUserId String @map("last_updated_by_user_id")
-
-  isLocked Boolean @default(false) @map("is_locked")
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  createdByUser     User    @relation("CreatedItems", fields: [createdByUserId], references: [id])
-  lastUpdatedByUser User    @relation("UpdatedItems", fields: [lastUpdatedByUserId], references: [id])
-  user              User?   @relation(fields: [userId], references: [id])
-  userId            String?
+  id                  String   @id @default(uuid())
+  itemId              String   @unique @map("item_id")
+  companyId           String   @map("company_id")
+  itemCode            String   @map("item_code")
+  name                String
+  description         String?
+  unit                String
+  price               Float
+  createdByUserId     String   @map("created_by_user_id")
+  lastUpdatedByUserId String   @map("last_updated_by_user_id")
+  isLocked            Boolean  @default(false) @map("is_locked")
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  createdByUser       User     @relation("CreatedItems", fields: [createdByUserId], references: [id])
+  lastUpdatedByUser   User     @relation("UpdatedItems", fields: [lastUpdatedByUserId], references: [id])
+  user                User?    @relation(fields: [userId], references: [id])
+  userId              String?
 
   @@map("items")
+}
+
+model Vendor {
+  id                  String   @id @default(uuid())
+  vendorId            String   @unique @map("vendor_id")
+  companyId           String   @map("company_id")
+  vendorCode          String   @map("vendor_code")
+  name                String
+  email               String
+  phone               String
+  address             String
+  createdByUserId     String   @map("created_by_user_id")
+  lastUpdatedByUserId String   @map("last_updated_by_user_id")
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  createdByUser     User @relation("CreatedVendors", fields: [createdByUserId], references: [id])
+  lastUpdatedByUser User @relation("UpdatedVendors", fields: [lastUpdatedByUserId], references: [id])
+
+  @@map("vendors")
 }
