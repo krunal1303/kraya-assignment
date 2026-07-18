@@ -240,20 +240,22 @@ model RFQ {
   @@map("rfqs")
 }
 
+
 model RFQItem {
   id String @id @default(uuid())
 
-  rfqId    String @map("rfq_id")
-  itemId   String @map("item_id")
+  rfqId String @map("rfq_id")
+  itemId String @map("item_id")
   vendorId String @map("vendor_id")
 
   quantity Int
-  price    Float
+  price Float
 
-  rfq    RFQ    @relation(fields: [rfqId], references: [id])
-  item   Item   @relation(fields: [itemId], references: [id])
+  rfq RFQ @relation(fields: [rfqId], references: [id])
+  item Item @relation(fields: [itemId], references: [id])
   vendor Vendor @relation(fields: [vendorId], references: [id])
 
   @@unique([rfqId, itemId, vendorId])
+
   @@map("rfq_items")
 }
