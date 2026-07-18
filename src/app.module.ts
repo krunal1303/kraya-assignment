@@ -7,9 +7,10 @@ import { AuthModule } from './auth/auth.module';
 import { RolesModule } from './roles/roles.module';
 import { VendorsModule } from './vendors/vendors.module';
 import { IndentsModule } from './indents/indents.module';
+import { MiModule } from './mi/mi.module';
 
 @Module({
-  imports: [UsersModule, PrismaModule, AuthModule, RolesModule, VendorsModule, IndentsModule],
+  imports: [UsersModule, PrismaModule, AuthModule, RolesModule, VendorsModule, IndentsModule, MiModule],
   controllers: [AppController],
   providers: [AppService],
 })

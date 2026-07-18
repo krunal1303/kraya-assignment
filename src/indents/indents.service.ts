@@ -119,9 +119,7 @@ export class IndentsService {
     // Update
     async updateOne(id: string, dto: UpdateIndentDto, userId: string,) {
 
-        const indent = await this.prisma.indent.findUnique({
-            where: { id },
-        });
+        const indent = await this.prisma.indent.findUnique({ where: { id } });
 
         if (!indent) throw new NotFoundException('Indent not found');
 
@@ -137,9 +135,7 @@ export class IndentsService {
                             ]
                         },
                         {
-                            id: {
-                                not: id
-                            }
+                            id: { not: id }
                         }
                     ]
                 }

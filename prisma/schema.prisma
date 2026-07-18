@@ -30,6 +30,9 @@ model User {
   createdIndents Indent[] @relation("CreatedIndents")
   updatedIndents Indent[] @relation("UpdatedIndents")
 
+  createdMIs MI[] @relation("CreatedMIs")
+  updatedMIs MI[] @relation("UpdatedMIs")
+
   @@map("users")
 }
 
@@ -104,6 +107,8 @@ model Item {
   createdByUser     User @relation("CreatedItems", fields: [createdByUserId], references: [id])
   lastUpdatedByUser User @relation("UpdatedItems", fields: [lastUpdatedByUserId], references: [id])
 
+  miItems MIItem[]
+
   indentItems IndentItem[]
 
   @@map("items")
@@ -132,7 +137,8 @@ model Vendor {
 model Indent {
   id String @id @default(uuid())
 
-  indentId   String @unique @map("indent_id")
+  indentId String @unique @map("indent_id")
+
   companyId  String @map("company_id")
   indentCode String @unique @map("indent_code")
 
@@ -165,4 +171,42 @@ model IndentItem {
 
   @@unique([indentId, itemId])
   @@map("indent_items")
+}
+
+model MI {
+  id String @id @default(uuid())
+
+  miId      String @unique @map("mi_id")
+  companyId String @map("company_id")
+  miCode    String @unique @map("mi_code")
+
+  description String?
+
+  createdByUserId     String @map("created_by_user_id")
+  lastUpdatedByUserId String @map("last_updated_by_user_id")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  createdByUser     User @relation("CreatedMIs", fields: [createdByUserId], references: [id])
+  lastUpdatedByUser User @relation("UpdatedMIs", fields: [lastUpdatedByUserId], references: [id])
+
+  miItems MIItem[]
+
+  @@map("mis")
+}
+
+model MIItem {
+  id String @id @default(uuid())
+
+  miId   String @map("mi_id")
+  itemId String @map("item_id")
+
+  quantity Int
+
+  mi   MI   @relation(fields: [miId], references: [id])
+  item Item @relation(fields: [itemId], references: [id])
+
+  @@unique([miId, itemId])
+  @@map("mi_items")
 }
