@@ -52,9 +52,10 @@ export class RolesService {
   // To assign a role to User
   async assignUserRole(assignUserRoleDto: AssignUserRoleDto) {
 
+    console.log(assignUserRoleDto.userId, 'assignUserRoleDto.userId-------')
     const existingUser = await this.prisma.user.findUnique({ where: { id: assignUserRoleDto.userId } });
 
-    if (existingUser) throw new ConflictException('User does not exist');
+    if (!existingUser) throw new ConflictException('User does not exist');
 
     const existingRole = await this.prisma.user.findUnique({ where: { id: assignUserRoleDto.roleId } });
 

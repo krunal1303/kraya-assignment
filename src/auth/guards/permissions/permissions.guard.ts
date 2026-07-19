@@ -9,6 +9,7 @@ export class PermissionsGuard implements CanActivate {
 
   // permissionKey - is a key to store metadata -> permissions: {entity: 'ITEM', action: 'READ'}
   canActivate(context: ExecutionContext): boolean {
+    console.log('permissionKey =', permissionKey);
     const permissions = this.reflector.get(permissionKey, context.getHandler());
 
     if (!permissions) return true;

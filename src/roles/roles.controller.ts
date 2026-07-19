@@ -28,7 +28,7 @@ export class RolesController {
   }
 
   // To get the single role
-  @Get('id')
+  @Get(':id')
   @UseGuards(JwtAuthGuard, PermissionsGuard)
   @Permissions('ROLE', 'READ')
   findOne(@Param(':id') id: string) {
