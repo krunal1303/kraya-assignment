@@ -244,7 +244,6 @@ The project includes a Postman Collection covering:
 - Master Data
 - Procurement Business Flow
 - Authorization Demo
-- Error Handling
 
 ---
 
