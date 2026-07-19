@@ -1,54 +1,137 @@
 # Kraya Assignment
 
-## Prerequisites
-
-- Node.js
-- PostgreSQL
-- Docker
+Backend implementation of a simplified Procurement Management System built using **NestJS**, **Prisma ORM**, **PostgreSQL**, and **JWT Authentication**.
 
 ---
 
-## Setup
+# Tech Stack
 
-Clone the repository:
+- NestJS
+- TypeScript
+- Prisma ORM
+- PostgreSQL
+- JWT Authentication
+- Docker
+- Postman
+
+---
+
+# Features
+
+- JWT Authentication
+- Role Based Access Control (RBAC)
+- User Management
+- Role & Permission Management
+- Item Management
+- Vendor Management
+- Indent Management
+- Material Issue (MI) Management
+- Request For Quotation (RFQ) Management
+- Prisma Seeder
+- DTO Validation
+- Exception Handling
+
+---
+
+# Project Structure
+
+```
+src
+├── auth
+├── users
+├── roles
+├── items
+├── vendors
+├── indents
+├── mi
+├── rfq
+├── prisma
+└── common
+```
+
+---
+
+# Prerequisites
+
+- Node.js
+- PostgreSQL
+- Docker 
+
+---
+
+# Setup
+
+Clone the repository
 
 ```bash
 git clone <repository-url>
 cd kraya-assignment
 ```
 
-Install dependencies:
+Install dependencies
 
 ```bash
 npm install
 ```
 
-Create a `.env` file in the root directory.
+---
 
-Example:
+# Environment Variables
+
+Create a `.env` file in the project root.
 
 ```env
 DATABASE_URL="postgresql://postgres:postgres@localhost:5432/krayaDB"
 
 JWT_SECRET=kraya-secret-key
 
-// SEED ADMIN CREDS
 DEFAULT_ADMIN_NAME=Admin
 DEFAULT_ADMIN_EMAIL=admin@kraya.com
 DEFAULT_ADMIN_PASSWORD=Admin@123
 DEFAULT_ADMIN_PHONE=9090909090
-
-PERMISSIONS_KEY=permission
-
 
 PORT=3001
 ```
 
 ---
 
-## Start PostgreSQL (Docker)
+# Database Setup
 
-If you're using Docker:
+Generate Prisma Client
+
+```bash
+npx prisma generate
+```
+
+Run Migrations
+
+```bash
+npx prisma migrate dev
+```
+
+or
+
+```bash
+npx prisma migrate deploy
+```
+
+Seed Default Data
+
+```bash
+npx prisma db seed
+```
+
+The seed creates:
+
+- Default Admin User
+- Default Roles
+- Default Permissions
+
+---
+
+# Docker
+
+Start PostgreSQL
 
 ```bash
 docker compose up -d
@@ -56,56 +139,36 @@ docker compose up -d
 
 ---
 
-## Run Prisma
-
-Generate Prisma Client:
-
-```bash
-npx prisma generate
-```
-
-Run migrations:
-
-```bash
-npx prisma migrate dev
-```
-
-```bash
-npx prisma migrate deploy
-```
-
-```Seed the default data
-npx prisma db seed
-```
-
----
-
-## Start the application
+# Run Application
 
 ```bash
 npm run start:dev
 ```
 
-The application will start on:
+Application URL
 
 ```
-http://localhost:3000
+http://localhost:3001
 ```
 
 ---
 
-## APIs Implemented
+# Authentication
 
-### Public APIs
+## Public APIs
 
-- `POST /auth/register`
-- `POST /auth/login`
+```
+POST /auth/register
+POST /auth/login
+```
 
-### Protected APIs
+## Protected APIs
 
-- `GET /auth/profile`
+```
+GET /auth/profile
+```
 
-For protected APIs, pass the JWT token in the Authorization header:
+Pass JWT Token
 
 ```
 Authorization: Bearer <access_token>
@@ -113,26 +176,114 @@ Authorization: Bearer <access_token>
 
 ---
 
-## Useful Commands
+# Modules Implemented
+
+- Authentication
+- Users
+- Roles
+- Permissions
+- Items
+- Vendors
+- Indents
+- Material Issue (MI)
+- Request For Quotation (RFQ)
+
+---
+
+# RBAC Flow
+
+```
+Admin
+    ↓
+Create Role
+    ↓
+Assign Permissions
+    ↓
+Create User
+    ↓
+Assign Role
+    ↓
+User Login
+    ↓
+Permission Based API Access
+```
+
+---
+
+# Procurement Flow
+
+```
+Item
+    ↓
+Vendor
+    ↓
+Indent
+    ↓
+Material Issue (MI)
+    ↓
+Request For Quotation (RFQ)
+```
+
+---
+
+# Default Admin Credentials
+
+```
+Email:
+admin@kraya.com
+
+Password:
+Admin@123
+```
+
+---
+
+# Postman Collection
+
+The project includes a Postman Collection covering:
+
+- Authentication
+- RBAC
+- User Management
+- Master Data
+- Procurement Business Flow
+- Authorization Demo
+- Error Handling
+
+---
+
+# Useful Commands
+
+Run Development Server
 
 ```bash
 npm run start:dev
 ```
 
+Build Project
+
 ```bash
 npm run build
 ```
+
+Open Prisma Studio
 
 ```bash
 npx prisma studio
 ```
 
+Generate Prisma Client
+
+```bash
+npx prisma generate
+```
+
 ---
 
-## Note
+# Assumptions
 
-This project is currently under development as part of the assignment.
-
-// .env creds
-DATABASE_URL="postgresql://postgres:postgres@localhost:5432/krayaDB"
-JWT_SECRET=kraya-secret-key
+- Admin user bypasses all permission checks.
+- Normal users require role-based permissions.
+- Passwords are securely hashed using bcrypt.
+- UUIDs are used as primary identifiers.
+- PostgreSQL is used as the primary database.
