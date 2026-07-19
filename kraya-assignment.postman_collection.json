@@ -1,0 +1,1302 @@
+{
+  "info": {
+    "_postman_id": "7afe3a43-a1a1-4669-828c-1004132a4ec3",
+    "name": "kraya-assignment",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "24333294"
+  },
+  "item": [
+    {
+      "name": "1. Auth",
+      "item": [
+        {
+          "name": "1.1 Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"emailOrPhone\": \"admin@kraya.com\",\r\n    \"password\": \"Admin@123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "1.2 Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{loginToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/profile",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "profile"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "1.3 User Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"emailOrPhone\": \"kapil101@yopmail.com\",\r\n    \"password\": \"Password@123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "2. RBAC",
+      "item": [
+        {
+          "name": "2.1 Get Roles",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{loginToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/roles",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "roles"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "2.2 Create Role",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{loginToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Manager\",\r\n    \"description\": \"Manages modules\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/roles",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "roles"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "2.3 Assign Permissions to Role",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/roles/assign-permissions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "roles",
+                "assign-permissions"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "2.4 Create User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{loginToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Kapil Gaikwad\",\r\n    \"email\": \"kapil101@yopmail.com\",\r\n    \"phone\": \"8080808080\",\r\n    \"password\": \"Password@123\",\r\n    \"isAdmin\": false\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "2.5 Assign Role to User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{loginToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"userId\": \"{{userId}}\",\r\n    \"roleId\": \"{{roleId}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/roles/assign-user",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "roles",
+                "assign-user"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "3. User Management",
+      "item": [
+        {
+          "name": "3.1 Get All Users",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{loginToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"emailOrPhone\": \"kapil101@yopmail.com\",\r\n    \"password\": \"Password@123\"\r\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "3.2 Get User By Id",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{loginToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/7d644618-2ec7-4c5f-9e32-de94442044d7",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "7d644618-2ec7-4c5f-9e32-de94442044d7"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "3.2 Get User By Id Copy",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{loginToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Krunal Dhone\",\r\n    \"email\": \"krunal101@yopmail.com\",\r\n    \"password\": \"Password@123\",\r\n    \"isAdmin\": false\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/7d644618-2ec7-4c5f-9e32-de94442044d7",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "7d644618-2ec7-4c5f-9e32-de94442044d7"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "4. Master Data",
+      "item": [
+        {
+          "name": "4.1. Items",
+          "item": [
+            {
+              "name": "4.1.1. Create Item",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{loginToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"itemId\": \"Item-103\",\r\n    \"companyId\": \"{{companyId}}\",\r\n    \"itemCode\": \"Item-103\",\r\n    \"name\": \"HP Printer\",\r\n    \"description\": \"HP Printer - printer\",\r\n    \"unit\": \"Nos\",\r\n    \"price\": 14500\r\n  }",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/items",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "items"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "4.1.2. Get All Items",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{loginToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"itemId\": \"Item-101\",\r\n    \"companyId\": \"{{companyId}}\",\r\n    \"itemCode\": \"Item-101\",\r\n    \"name\": \"Motorola Mobile\",\r\n    \"description\": \"Motorola Edge 50\",\r\n    \"unit\": \"Nos\",\r\n    \"price\": 25000\r\n\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/items",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "items"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "4.1.3. Get Single Itemss",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{loginToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"itemId\": \"Item-101\",\r\n    \"companyId\": \"{{companyId}}\",\r\n    \"itemCode\": \"Item-101\",\r\n    \"name\": \"Motorola Mobile\",\r\n    \"description\": \"Motorola Edge 50\",\r\n    \"unit\": \"Nos\",\r\n    \"price\": 25000\r\n\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/items/cec3ff98-3eb1-4ac4-80f6-18ad86cfcad7",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "items",
+                    "cec3ff98-3eb1-4ac4-80f6-18ad86cfcad7"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "4.1.4. Get Single Itemss Copy",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{loginToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"itemId\": \"Item-101\",\r\n    \"companyId\": \"{{companyId}}\",\r\n    \"itemCode\": \"Item-101\",\r\n    \"name\": \"Motorola Mobile phone\",\r\n    \"description\": \"Motorola Edge 50\",\r\n    \"unit\": \"Nos\",\r\n    \"price\": 20000\r\n\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/items/cec3ff98-3eb1-4ac4-80f6-18ad86cfcad7",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "items",
+                    "cec3ff98-3eb1-4ac4-80f6-18ad86cfcad7"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "4.2 Vendors",
+          "item": [
+            {
+              "name": "4.2.1. Create Vendor",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{loginToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"vendorId\": \"VEN-102\",\r\n    \"companyId\": \"{{companyId}}\",\r\n    \"vendorCode\": \"VEN-102\",\r\n    \"name\": \"DEF Technologies\",\r\n    \"email\": \"vendor2@abc.com\",\r\n    \"phone\": \"8080808080\",\r\n    \"address\": \"Nagpur, Maharashtra\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/vendors",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "vendors"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "4.2.2. Get All Vendors",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{loginToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/vendors",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "vendors"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "4.2.3. Get All Single Vendor",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{loginToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/vendors/556e172e-b801-4bba-92b0-755368289e43",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "vendors",
+                    "556e172e-b801-4bba-92b0-755368289e43"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "4.2.4. Update Vendor",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{loginToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\": \"DEF Technologies updated\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/vendors/556e172e-b801-4bba-92b0-755368289e43",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "vendors",
+                    "556e172e-b801-4bba-92b0-755368289e43"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "5. Procurement Business Flow",
+      "item": [
+        {
+          "name": "5.1 Indents",
+          "item": [
+            {
+              "name": "5.1.1. Create Indent",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{loginToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"indentId\": \"IND001\",\r\n    \"companyId\": \"{{companyId}}\",\r\n    \"indentCode\": \"IND001\",\r\n    \"description\": \"Purchase of Dell laptops\",\r\n    \"items\": [\r\n        {\r\n            \"itemId\": \"{{itemId}}\",\r\n            \"quantity\": 5\r\n        }\r\n    ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/indents",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "indents"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "5.1.2. Get All Indent",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{loginToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"indentId\": \"IND001\",\r\n    \"companyId\": \"{{companyId}}\",\r\n    \"indentCode\": \"IND001\",\r\n    \"description\": \"Purchase of Dell laptops\",\r\n    \"items\": [\r\n        {\r\n            \"itemId\": \"{{itemId}}\",\r\n            \"quantity\": 5\r\n        }\r\n    ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/indents",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "indents"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "5.1.3. Get Somgle Indent",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{loginToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"indentId\": \"IND001\",\r\n    \"companyId\": \"{{companyId}}\",\r\n    \"indentCode\": \"IND001\",\r\n    \"description\": \"Purchase of Dell laptops\",\r\n    \"items\": [\r\n        {\r\n            \"itemId\": \"{{itemId}}\",\r\n            \"quantity\": 5\r\n        }\r\n    ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/indents/248d210a-6e10-479f-a396-bbdff90ea93e",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "indents",
+                    "248d210a-6e10-479f-a396-bbdff90ea93e"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "5.1.4. Get Somgle Indent Copy",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{loginToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"indentId\": \"IND001\",\r\n    \"companyId\": \"{{companyId}}\",\r\n    \"indentCode\": \"IND001\",\r\n    \"description\": \"Purchase of Dell laptops updated2\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/indents/248d210a-6e10-479f-a396-bbdff90ea93e",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "indents",
+                    "248d210a-6e10-479f-a396-bbdff90ea93e"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "5.2 RFQ",
+          "item": [
+            {
+              "name": "5.2.1. Create RFQ",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{loginToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"rfqId\": \"RFQ-101\",\r\n    \"companyId\": \"{{companyId}}\",\r\n    \"rfqCode\": \"RFQ-101\",\r\n    \"description\": \"Laptop Quotation\",\r\n    \"items\": [\r\n        {\r\n            \"itemId\": \"{{itemId}}\",\r\n            \"vendorId\": \"{{vendorId}}\",\r\n            \"quantity\": 5,\r\n            \"price\": 55000\r\n        }\r\n    ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/rfq",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "rfq"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "5.1.2. Get All RFQ",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{loginToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"indentId\": \"IND001\",\r\n    \"companyId\": \"{{companyId}}\",\r\n    \"indentCode\": \"IND001\",\r\n    \"description\": \"Purchase of Dell laptops\",\r\n    \"items\": [\r\n        {\r\n            \"itemId\": \"{{itemId}}\",\r\n            \"quantity\": 5\r\n        }\r\n    ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/rfq",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "rfq"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "5.1.3. Get Somgle RFQ",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{loginToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"indentId\": \"IND001\",\r\n    \"companyId\": \"{{companyId}}\",\r\n    \"indentCode\": \"IND001\",\r\n    \"description\": \"Purchase of Dell laptops\",\r\n    \"items\": [\r\n        {\r\n            \"itemId\": \"{{itemId}}\",\r\n            \"quantity\": 5\r\n        }\r\n    ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/rfq/6990f869-d2db-4988-b4bf-a394e96000f1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "rfq",
+                    "6990f869-d2db-4988-b4bf-a394e96000f1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "5.1.4. Get Somgle RFQ",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{loginToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"description\": \"Updated RFQ\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/rfq/6990f869-d2db-4988-b4bf-a394e96000f1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "rfq",
+                    "6990f869-d2db-4988-b4bf-a394e96000f1"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "5.3 MI",
+          "item": [
+            {
+              "name": "5.2.1. Create MI",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{loginToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"miId\": \"MI001\",\r\n    \"companyId\": \"{{companyId}}\",\r\n    \"miCode\": \"MI001\",\r\n    \"description\": \"Material issued for MOTOO phone\",\r\n    \"items\": [\r\n        {\r\n            \"itemId\": \"{{itemId}}\",\r\n            \"quantity\": 2\r\n        }\r\n    ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/mi",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "mi"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "5.1.2. Get All MI",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{loginToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"indentId\": \"IND001\",\r\n    \"companyId\": \"{{companyId}}\",\r\n    \"indentCode\": \"IND001\",\r\n    \"description\": \"Purchase of Dell laptops\",\r\n    \"items\": [\r\n        {\r\n            \"itemId\": \"{{itemId}}\",\r\n            \"quantity\": 5\r\n        }\r\n    ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/mi",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "mi"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "5.1.3. Get Somgle MI",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{loginToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"indentId\": \"IND001\",\r\n    \"companyId\": \"{{companyId}}\",\r\n    \"indentCode\": \"IND001\",\r\n    \"description\": \"Purchase of Dell laptops\",\r\n    \"items\": [\r\n        {\r\n            \"itemId\": \"{{itemId}}\",\r\n            \"quantity\": 5\r\n        }\r\n    ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/mi/f2679439-6e0d-463b-aeff-f81d64a78b1e",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "mi",
+                    "f2679439-6e0d-463b-aeff-f81d64a78b1e"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "5.1.4. Update Somgle Mi",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{loginToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"description\": \"Material issued for MOTOO phone updated\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/mi/f2679439-6e0d-463b-aeff-f81d64a78b1e",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "mi",
+                    "f2679439-6e0d-463b-aeff-f81d64a78b1e"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "6. Authorization Demo",
+      "item": [
+        {
+          "name": "6.1 Login  - Admin",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer ",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"emailOrPhone\": \"admin@kraya.com\",\r\n    \"password\": \"Admin@123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "6.2 Create Item - Admin",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{loginToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{bearer_token_11kc}}",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"itemId\": \"Item-104\",\r\n    \"companyId\": \"{{companyId}}\",\r\n    \"itemCode\": \"Item-104\",\r\n    \"name\": \"Keyboard\",\r\n    \"description\": \"Gaming Keyboard\",\r\n    \"unit\": \"Nos\",\r\n    \"price\": 14500\r\n  }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/items",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "items"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "6.3 Login - User",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"emailOrPhone\": \"krunal101@yopmail.com\",\r\n    \"password\": \"Password@123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "6.4 Create Item - User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{userLoginToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"itemId\": \"Item-104\",\r\n    \"companyId\": \"{{companyId}}\",\r\n    \"itemCode\": \"Item-104\",\r\n    \"name\": \"Keyboard\",\r\n    \"description\": \"Gaming Keyboard\",\r\n    \"unit\": \"Nos\",\r\n    \"price\": 14500\r\n  }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/items",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "items"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "6.5 Assign Permission to User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{loginToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"roleId\": \"959f82b7-fa5b-4b05-a5e9-e2c786796870\",\r\n    \"permissionIds\": [\"6f0098eb-e529-4f9d-9f78-96f41d5cc2b0\", \"eb40366b-3d3f-4a9d-84c7-b15d08e39fc0\"]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/roles/assign-permissions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "roles",
+                "assign-permissions"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "6.6 Create Item - User - After permission assign",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{userLoginToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"itemId\": \"Item-105\",\r\n    \"companyId\": \"{{companyId}}\",\r\n    \"itemCode\": \"Item-105\",\r\n    \"name\": \"Monitor\",\r\n    \"description\": \"Monitor - desciption\",\r\n    \"unit\": \"Nos\",\r\n    \"price\": 1000\r\n  }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/items",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "items"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "loginToken",
+      "secret": true
+    },
+    {
+      "key": "baseUrl",
+      "value": ""
+    },
+    {
+      "key": "adminId",
+      "value": ""
+    },
+    {
+      "key": "userId",
+      "value": ""
+    },
+    {
+      "key": "roleId",
+      "value": ""
+    },
+    {
+      "key": "companyId",
+      "value": ""
+    },
+    {
+      "key": "vendorId",
+      "value": ""
+    },
+    {
+      "key": "itemId",
+      "value": "",
+      "disabled": true
+    },
+    {
+      "key": "indentId",
+      "value": ""
+    },
+    {
+      "key": "miId",
+      "value": ""
+    },
+    {
+      "key": "rfqId",
+      "value": ""
+    },
+    {
+      "key": "userLoginToken",
+      "secret": true
+    },
+    {
+      "key": "bearer_token_11kc",
+      "secret": true
+    },
+    {
+      "key": "supabase_service_role_api_key_08a5",
+      "secret": true
+    }
+  ]
+}
