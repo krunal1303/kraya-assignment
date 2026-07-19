@@ -1,9 +1,5 @@
 # Kraya Assignment
 
-Backend implementation of a simplified Procurement Management System built using **NestJS**, **Prisma ORM**, **PostgreSQL**, and **JWT Authentication**.
-
----
-
 # Tech Stack
 
 - NestJS
